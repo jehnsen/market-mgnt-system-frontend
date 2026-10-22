@@ -1,0 +1,285 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ------------------------------------------------------------------
+   MARCIS "Coastal Treasury" design tokens
+   ------------------------------------------------------------------ */
+:root {
+  --background: #f3f6f5;
+  --surface: #ffffff;
+  --surface-muted: #e9f0ee;
+  --surface-raised: #ffffff;
+  --border: #d6e0dd;
+  --border-strong: #b9c8c4;
+  --ink: #12201e;
+  --ink-muted: #55635f;
+  --ink-subtle: #6b7975;
+
+  --primary: #0e5e63;
+  --primary-hover: #0b4b4f;
+  --primary-soft: #dcecec;
+  --primary-ink: #ffffff;
+
+  --sidebar: #0a2a2d;
+  --sidebar-ink: #d7e5e2;
+  --sidebar-muted: #8fa9a5;
+  --sidebar-active: #134a4f;
+  --sidebar-border: #163c40;
+
+  --accent: #d4893a;
+  --accent-ink: #8a5216;
+  --accent-soft: #f7e7d3;
+
+  --money-in: #23784a;
+  --money-in-soft: #e1f1e7;
+  --money-short: #b83227;
+  --money-short-soft: #f8e3e0;
+
+  --focus: #1f7a8c;
+  --overlay: rgb(10 42 45 / 0.45);
+
+  /* Status palette */
+  --st-occupied: #0e5e63;
+  --st-vacant: #64748b;
+  --st-reserved: #4c51bf;
+  --st-repair: #b7791f;
+  --st-expiring: #d4893a;
+  --st-arrears: #b83227;
+  --st-pending: #64748b;
+  --st-synced: #2b6cb0;
+  --st-reconciled: #23784a;
+  --st-variance: #b83227;
+  --st-corrected: #b7791f;
+
+  /* Chart series — categorical order validated (CVD, contrast) with the dataviz validator */
+  --chart-1: #00899c;
+  --chart-2: #e0742c;
+  --chart-3: #6250d6;
+  --chart-4: #b87a00;
+  --chart-5: #d55181;
+  --chart-muted: #a7b4b1;
+  --chart-grid: #e2e9e7;
+  /* Arrears aging: neutral "current", then one warm hue light→dark */
+  --aging-current: #94a3b8;
+  --aging-1: #e89a76;
+  --aging-2: #d8693f;
+  --aging-3: #b8431f;
+  --aging-4: #86290f;
+
+  --shadow-pop: 0 10px 30px -12px rgb(10 42 45 / 0.25), 0 2px 6px -2px rgb(10 42 45 / 0.12);
+}
+
+.dark {
+  --background: #081b1d;
+  --surface: #0f2629;
+  --surface-muted: #143034;
+  --surface-raised: #132d31;
+  --border: #21403f;
+  --border-strong: #2f5553;
+  --ink: #e4ecea;
+  --ink-muted: #a3b5b1;
+  --ink-subtle: #8aa09b;
+
+  --primary: #4fb3b0;
+  --primary-hover: #6cc6c2;
+  --primary-soft: #133b3d;
+  --primary-ink: #04191a;
+
+  --sidebar: #051416;
+  --sidebar-ink: #d7e5e2;
+  --sidebar-muted: #86a19c;
+  --sidebar-active: #0f3437;
+  --sidebar-border: #0f2a2d;
+
+  --accent: #e9a45a;
+  --accent-ink: #f0b877;
+  --accent-soft: #3a2a17;
+
+  --money-in: #5cc489;
+  --money-in-soft: #123222;
+  --money-short: #f0786b;
+  --money-short-soft: #3b1714;
+
+  --focus: #5fc0d1;
+  --overlay: rgb(0 0 0 / 0.6);
+
+  --st-occupied: #4fb3b0;
+  --st-vacant: #94a3b8;
+  --st-reserved: #8f94f0;
+  --st-repair: #e0a84a;
+  --st-expiring: #e9a45a;
+  --st-arrears: #f0786b;
+  --st-pending: #94a3b8;
+  --st-synced: #6aa8e8;
+  --st-reconciled: #5cc489;
+  --st-variance: #f0786b;
+  --st-corrected: #e0a84a;
+
+  --chart-1: #2fa7ad;
+  --chart-2: #d95926;
+  --chart-3: #9085e9;
+  --chart-4: #c98500;
+  --chart-5: #d55181;
+  --chart-muted: #4d6764;
+  --chart-grid: #1d3a3d;
+  --aging-current: #64748b;
+  --aging-1: #f0a283;
+  --aging-2: #e2774c;
+  --aging-3: #c9512a;
+  --aging-4: #9e3418;
+
+  --shadow-pop: 0 10px 30px -12px rgb(0 0 0 / 0.6), 0 2px 6px -2px rgb(0 0 0 / 0.4);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-surface-muted: var(--surface-muted);
+  --color-surface-raised: var(--surface-raised);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-ink: var(--ink);
+  --color-ink-muted: var(--ink-muted);
+  --color-ink-subtle: var(--ink-subtle);
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-primary-soft: var(--primary-soft);
+  --color-primary-ink: var(--primary-ink);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-ink: var(--sidebar-ink);
+  --color-sidebar-muted: var(--sidebar-muted);
+  --color-sidebar-active: var(--sidebar-active);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+  --color-accent-soft: var(--accent-soft);
+  --color-money-in: var(--money-in);
+  --color-money-in-soft: var(--money-in-soft);
+  --color-money-short: var(--money-short);
+  --color-money-short-soft: var(--money-short-soft);
+  --color-focus: var(--focus);
+  --color-overlay: var(--overlay);
+
+  --font-sans: var(--font-public-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-heading: var(--font-jakarta), var(--font-public-sans), ui-sans-serif, sans-serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, SFMono-Regular, monospace;
+
+  --shadow-pop: var(--shadow-pop);
+
+  --text-page: 1.75rem;
+  --text-page--line-height: 2.25rem;
+  --text-section: 1.25rem;
+  --text-section--line-height: 1.75rem;
+  --text-body: 0.9375rem;
+  --text-body--line-height: 1.5rem;
+  --text-kpi: 2rem;
+  --text-kpi--line-height: 2.5rem;
+}
+
+@layer base {
+  * {
+    border-color: var(--border);
+  }
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    background: var(--background);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    font-size: 0.9375rem;
+    line-height: 1.5rem;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-heading);
+    letter-spacing: -0.01em;
+  }
+  :focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 2px;
+  }
+  ::selection {
+    background: var(--accent-soft);
+    color: var(--ink);
+  }
+}
+
+@layer utilities {
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+  .num {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+  }
+  .small-caps {
+    font-variant-caps: all-small-caps;
+    letter-spacing: 0.06em;
+  }
+  .scrollbar-thin {
+    scrollbar-width: thin;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ------------------------------------------------------------------
+   Print: official documents only
+   ------------------------------------------------------------------ */
+@media print {
+  @page {
+    size: A4;
+    margin: 14mm 14mm 16mm;
+  }
+  :root,
+  .dark {
+    --background: #ffffff;
+    --surface: #ffffff;
+    --ink: #000000;
+    --ink-muted: #333333;
+    --border: #999999;
+  }
+  html,
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+  .no-print,
+  [data-no-print] {
+    display: none !important;
+  }
+  [data-print-root] {
+    padding: 0 !important;
+    margin: 0 !important;
+    max-width: none !important;
+  }
+  .doc-page {
+    box-shadow: none !important;
+    border: none !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+    max-width: none !important;
+    break-after: page;
+  }
+  .doc-page:last-child {
+    break-after: auto;
+  }
+  .doc-avoid-break {
+    break-inside: avoid;
+  }
+}
