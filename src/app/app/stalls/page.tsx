@@ -162,7 +162,7 @@ function StallsContent() {
       ) : view === 'map' ? (
         <div className="grid gap-6">
           {visibleMarkets.map((m) => (
-            <Card key={m.id}>
+            <Card key={m.id} className="min-w-0">
               <CardHeader>
                 <div>
                   <CardTitle>{m.name}</CardTitle>

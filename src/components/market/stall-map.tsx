@@ -63,9 +63,9 @@ export function StallMap({ market, sections, stalls, matches, selectedId, onSele
   const fit = React.useCallback(() => {
     const el = containerRef.current
     if (!el) return
-    const scale = Math.min(1, el.clientWidth / width)
-    setView({ scale, x: (el.clientWidth - width * scale) / 2, y: 0 })
-  }, [width])
+    const scale = Math.min(1, el.clientWidth / width, el.clientHeight / fullHeight)
+    setView({ scale, x: (el.clientWidth - width * scale) / 2, y: (el.clientHeight - fullHeight * scale) / 2 })
+  }, [width, fullHeight])
   React.useEffect(() => {
     fit()
     const el = containerRef.current
@@ -179,7 +179,7 @@ export function StallMap({ market, sections, stalls, matches, selectedId, onSele
       </div>
       <div
         ref={containerRef}
-        className="relative touch-none overflow-hidden rounded-md bg-[radial-gradient(var(--border)_1px,transparent_1px)] [background-size:16px_16px] select-none"
+        className="relative w-full touch-none overflow-hidden rounded-md bg-[radial-gradient(var(--border)_1px,transparent_1px)] [background-size:16px_16px] select-none"
         style={{ height }}
         onPointerDown={(e) => {
           if ((e.target as Element).closest('[data-tile]')) return
@@ -203,7 +203,7 @@ export function StallMap({ market, sections, stalls, matches, selectedId, onSele
           zoom(e.deltaY < 0 ? 1.1 : 0.9)
         }}
       >
-        <svg width={width} height={fullHeight} role="group" aria-label={`Floor plan of ${market.name}. Use arrow keys to move between stalls and Enter to open one.`} style={{ transform: `translate(${view.x}px, ${view.y}px) scale(${view.scale})`, transformOrigin: '0 0' }} className="overflow-visible">
+        <svg width={width} height={fullHeight} role="group" aria-label={`Floor plan of ${market.name}. Use arrow keys to move between stalls and Enter to open one.`} style={{ transform: `translate(${view.x}px, ${view.y}px) scale(${view.scale})`, transformOrigin: '0 0' }} className="absolute top-0 left-0 max-w-none overflow-visible">
           <defs>
             <pattern id={`repair-${market.id}`} width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
               <line x1="0" y1="0" x2="0" y2="6" stroke="var(--st-repair)" strokeWidth="1.5" opacity="0.45" />
@@ -214,7 +214,15 @@ export function StallMap({ market, sections, stalls, matches, selectedId, onSele
           {market.zones.map((z) => (
             <g key={z.id} aria-hidden>
               <rect x={pos(z.x)} y={pos(z.y)} width={z.w * (CELL + GAP) - GAP} height={z.h * (CELL + GAP) - GAP} rx={6} fill={z.kind === 'entrance' ? 'var(--accent-soft)' : 'var(--surface-muted)'} stroke={z.kind === 'entrance' ? 'var(--accent)' : 'var(--border-strong)'} strokeDasharray="5 4" />
-              <text x={pos(z.x) + (z.w * (CELL + GAP) - GAP) / 2} y={pos(z.y) + (z.h * (CELL + GAP) - GAP) / 2 + 4} textAnchor="middle" fontSize={11} fill="var(--ink-muted)" fontWeight={500}>
+              <text
+                x={pos(z.x) + (z.w * (CELL + GAP) - GAP) / 2}
+                y={pos(z.y) + (z.h * (CELL + GAP) - GAP) / 2 + 4}
+                transform={z.h > z.w ? `rotate(-90 ${pos(z.x) + (z.w * (CELL + GAP) - GAP) / 2} ${pos(z.y) + (z.h * (CELL + GAP) - GAP) / 2})` : undefined}
+                textAnchor="middle"
+                fontSize={11}
+                fill="var(--ink-muted)"
+                fontWeight={500}
+              >
                 {z.label}
               </text>
             </g>

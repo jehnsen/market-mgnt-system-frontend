@@ -282,4 +282,8 @@
   .doc-avoid-break {
     break-inside: avoid;
   }
+  /* On pages that hold an official document, print only the document(s). */
+  [data-print-root]:has(.doc-page) > :not(:has(.doc-page)):not(.doc-page) {
+    display: none !important;
+  }
 }

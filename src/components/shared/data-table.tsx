@@ -128,6 +128,7 @@ export function DataTable<T>({
     return [select, ...inputColumns]
   }, [inputColumns, selection])
 
+  // eslint-disable-next-line react-hooks/incompatible-library
   const table = useReactTable({
     data: data ?? [],
     columns,
@@ -167,7 +168,7 @@ export function DataTable<T>({
   const toolbarEl = (
     <div className="no-print flex flex-wrap items-center gap-2 border-b border-border px-3 py-2.5 sm:px-4">
       <div className="flex min-w-0 flex-1 flex-wrap items-center gap-2">{toolbar}</div>
-      {isDesktop && hideable.length > 3 ? (
+      {isDesktop && hideable.length > 3 && toolbar ? (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" size="sm" aria-label="Show or hide columns">
@@ -243,7 +244,7 @@ export function DataTable<T>({
 
   return (
     <div className={cn('overflow-hidden rounded-lg border border-border bg-surface', className)}>
-      {toolbar || hideable.length > 3 ? toolbarEl : null}
+      {toolbar ? toolbarEl : null}
       <div
         ref={scrollRef}
         className={cn('relative overflow-x-auto', scrollable && 'overflow-y-auto')}

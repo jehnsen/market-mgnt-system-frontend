@@ -115,7 +115,7 @@ function KpiRow({ d }: { d: DashboardSummary }) {
       />
       <KpiCard
         label="Occupancy rate"
-        value={<span className="num text-[1.75rem] leading-9 font-semibold sm:text-kpi">{(d.occupancy.rateBps / 100).toFixed(1)}%</span>}
+        value={<span className="num text-[1.625rem] leading-9 font-semibold 2xl:text-[1.875rem]">{(d.occupancy.rateBps / 100).toFixed(1)}%</span>}
         deltaLabel={`${formatCount(d.occupancy.occupied)} of ${formatCount(d.occupancy.total)} stalls occupied`}
         spark={d.occupancy.spark}
         href="/app/stalls"
@@ -129,7 +129,7 @@ function KpiRow({ d }: { d: DashboardSummary }) {
       />
       <KpiCard
         label="Open variances"
-        value={<span className={cn('num text-[1.75rem] leading-9 font-semibold sm:text-kpi', d.variances.count > 0 && 'text-money-short')}>{d.variances.count}</span>}
+        value={<span className={cn('num text-[1.625rem] leading-9 font-semibold 2xl:text-[1.875rem]', d.variances.count > 0 && 'text-money-short')}>{d.variances.count}</span>}
         deltaLabel={d.variances.count ? <>Net <Amount value={d.variances.amount} size="sm" /> on days not yet closed</> : 'All remittances match'}
         tone={d.variances.count > 0 ? 'danger' : 'default'}
         href="/app/reconciliation"
@@ -340,7 +340,7 @@ function SummaryDashboard() {
       <section aria-label="Key figures" className="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-4">
         <KpiCard label={`Collected in ${formatMonthShort(d.month.month)}`} value={<Amount value={d.month.amount} size="kpi" />} progress={{ value: d.month.target ? (d.month.amount / d.month.target) * 100 : 0, label: `of ${formatPeso(d.month.target, { dropZeroCents: true })} monthly target` }} spark={d.month.spark} />
         <KpiCard label="Last 12 months" value={<Amount value={yearTotal} size="kpi" />} deltaLabel={`${formatMonthShort(d.monthly[0]!.month)} – ${formatMonthShort(d.monthly.at(-1)!.month)}`} spark={d.monthly.map((m) => m.amount)} />
-        <KpiCard label="Occupancy rate" value={<span className="num text-[1.75rem] leading-9 font-semibold sm:text-kpi">{(d.occupancy.rateBps / 100).toFixed(1)}%</span>} deltaLabel={`${d.occupancy.occupied} of ${d.occupancy.total} stalls`} spark={d.occupancy.spark} />
+        <KpiCard label="Occupancy rate" value={<span className="num text-[1.625rem] leading-9 font-semibold 2xl:text-[1.875rem]">{(d.occupancy.rateBps / 100).toFixed(1)}%</span>} deltaLabel={`${d.occupancy.occupied} of ${d.occupancy.total} stalls`} spark={d.occupancy.spark} />
         <KpiCard label="Arrears (overdue)" value={<Amount value={d.arrears.amount} size="kpi" />} deltaLabel={`${d.arrears.accounts} accounts past due`} />
       </section>
       <ChartCard

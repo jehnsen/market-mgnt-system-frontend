@@ -19,7 +19,7 @@ export const AGING_COLOR: Record<AgingBucket, string> = {
 export function AgingBar({ buckets, className, showLegend = true }: { buckets: Record<AgingBucket, Centavos>; className?: string; showLegend?: boolean }) {
   const total = AGING_ORDER.reduce((s, k) => s + Math.max(0, buckets[k]), 0)
   return (
-    <div className={className}>
+    <div className={cn('@container', className)}>
       <div
         className="flex h-3 w-full gap-[2px] overflow-hidden rounded-full bg-surface-muted"
         role="img"
@@ -34,7 +34,7 @@ export function AgingBar({ buckets, className, showLegend = true }: { buckets: R
           : null}
       </div>
       {showLegend ? (
-        <dl className="mt-3 grid grid-cols-2 gap-x-4 gap-y-2 sm:grid-cols-5">
+        <dl className="mt-3 grid grid-cols-2 gap-x-4 gap-y-2 @lg:grid-cols-5">
           {AGING_ORDER.map((k) => (
             <div key={k} className="min-w-0">
               <dt className="flex items-center gap-1.5 text-xs text-ink-muted">

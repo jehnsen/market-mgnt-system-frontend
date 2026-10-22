@@ -31,7 +31,7 @@ export function Amount({ value, className, signed, positiveTone, dashZero, size 
         'num whitespace-nowrap',
         size === 'sm' && 'text-[13px]',
         size === 'lg' && 'text-lg font-semibold',
-        size === 'kpi' && 'text-[1.75rem] leading-9 font-semibold tracking-tight sm:text-kpi',
+        size === 'kpi' && 'text-[1.625rem] leading-9 font-semibold tracking-tight 2xl:text-[1.875rem]',
         value < 0 && 'text-money-short',
         positiveTone && value > 0 && 'text-money-in',
         strike && 'line-through decoration-1 opacity-70',

@@ -436,7 +436,7 @@ export function createSeed(now: Date): Db {
   let histOr = 2_105_001
   const fieldPayments = new Map<string, Payment[]>() // `${date}|${stallId}`
   const addPayment = (lease: Lease, date: ISODate, amount: number, kind: Payment['kind']) => {
-    const field = date >= start && date < today && rng.chance(0.82) && leaseOn(lease.stallId, date)?.id === lease.id
+    const field = date >= start && date <= today && rng.chance(0.82) && leaseOn(lease.stallId, date)?.id === lease.id
     const p: Payment = {
       id: `pay-${payments.length + 1}`,
       leaseId: lease.id,
@@ -509,11 +509,11 @@ export function createSeed(now: Date): Db {
           return
         }
       }
-      const lastDay = m === currentMonth ? Math.max(1, todayDay - 1) : 28
+      const lastDay = m === currentMonth ? todayDay : 28
       let payDate = `${m}-${String(rng.int(1, lastDay)).padStart(2, '0')}`
       if (payDate < lease.startDate) payDate = lease.startDate
       if (payDate > leaseEnd(lease)) payDate = leaseEnd(lease)
-      if (payDate >= today) payDate = addDays(today, -1)
+      if (payDate > today) payDate = today
       addPayment(lease, payDate, lease.monthlyRate, 'rental')
     })
   })
