@@ -54,7 +54,6 @@ function Board() {
       firstCtx.current = false
       return
     }
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     setDate(ctxDate)
     setMonth(monthKey(ctxDate))
   }, [ctxDate])
